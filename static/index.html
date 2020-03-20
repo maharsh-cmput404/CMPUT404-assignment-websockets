@@ -270,10 +270,10 @@ function wsSetup() {
         try {
             debug("WebSocket Recv:" + msg.data);
             //XXX: TODO What are you going to do here?
-
-            // update the world with the new points
-            Object.keys(msg.data).forEach((key) => {
-                world[key] = msg.data[key];
+            // update the world with the new entities
+            var entities = JSON.parse(msg.data);
+            Object.keys(entities).forEach((key) => {
+                world[key] = entities[key];
             });
 
             drawNextFrame();

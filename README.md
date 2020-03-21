@@ -59,3 +59,9 @@ Contributors
 * Mark Galloway
 * Abram Hindle
 * Cole Mackenzie
+
+
+Sources
+=======
+Abram Hindle, https://github.com/abramhindle/WebSocketsExamples/blob/master/broadcaster.py
+user1693593, https://stackoverflow.com/questions/21890511/adding-a-random-color-to-a-generated-line

@@ -103,7 +103,12 @@ def read_ws(ws,client):
             print("WS RECV: %s" % msg)
             if (msg is not None):
                 packet = json.loads(msg)
+                # send the new data to all clients
                 send_all_json(packet)
+
+                # .. but also update the world so new clients will be able to get the current world
+                for key in packet:
+                    myWorld.set(key, packet[key])
             else:
                 break
     except:
@@ -117,6 +122,10 @@ def subscribe_socket(ws):
     clients.append(client)
     g = gevent.spawn(read_ws, ws, client)
     print("Subscribing")
+
+    # send the current state of the world to a new client
+    ws.send(json.dumps(myWorld.world()))
+
     try:
         while True:
             # block here

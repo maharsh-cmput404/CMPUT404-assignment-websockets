@@ -256,12 +256,23 @@ function update() {
     drawFrame();
 }
 
+function loadInitialWorld() {
+    fetch("/world").then((response) => {
+        if (response.status === 200) {
+            response.json().then((data) => {
+                world = data;
+                drawNextFrame();
+            });
+        }
+    });
+}
+
 
 function wsSetup() {
     var url = "ws://"+host+"/subscribe";   
     socket = new WebSocket(url);
     socket.onopen = function() {
-        //XXX: TODO What are you going to do here?
+        loadInitialWorld();
     };
     socket.onerror = function(msg) {
         debug("WebSocket Error:" + msg.data);
@@ -270,7 +281,7 @@ function wsSetup() {
         try {
             debug("WebSocket Recv:" + msg.data);
             //XXX: TODO What are you going to do here?
-            // update the world with the new entities
+            // update the world with the new entities - there should only be one item here
             var entities = JSON.parse(msg.data);
             Object.keys(entities).forEach((key) => {
                 world[key] = entities[key];

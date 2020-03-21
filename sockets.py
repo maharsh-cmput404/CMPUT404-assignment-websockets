@@ -123,9 +123,6 @@ def subscribe_socket(ws):
     g = gevent.spawn(read_ws, ws, client)
     print("Subscribing")
 
-    # send the current state of the world to a new client
-    ws.send(json.dumps(myWorld.world()))
-
     try:
         while True:
             # block here
@@ -178,7 +175,6 @@ def clear():
     '''Clear the world out!'''
     myWorld.clear()
     return jsonify(myWorld.world())
-
 
 
 if __name__ == "__main__":
